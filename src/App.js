@@ -1,23 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
-
+import Audio from "./components/Audio";
+import DetailSong from "./components/DetailSong";
+import ListSong from "./components/ListSong";
+import Navbar from "./components/Navbar";
+import { Song } from "./Context/Context";
+import DataSongs from './Data/songs.json';
+import "./App.css"
+import { useState } from "react";
 function App() {
+  const [song, setSong] = useState(DataSongs[0]);
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Song.Provider value={{DataSongs, song, setSong}}>
+        <Navbar />
+        <div className="grid grid-cols-3 bg-slate-700 h-screen-navbar-player overflow-hidden">
+          {/* span1 */}
+          <DetailSong />
+          {/* span 3 */}
+          <ListSong  />
+        </div>
+            <Audio  />
+      </Song.Provider>
     </div>
   );
 }
